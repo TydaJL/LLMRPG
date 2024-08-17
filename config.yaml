@@ -1,0 +1,41 @@
+API_KEYS:
+  HUGGINGFACE_API_KEY: '' # Huggingface API Key for accessing Huggingface models
+  OPENAI_API_KEY: '' # OpenAI API Key for completing and debugging programs at the end of the generation phase
+
+generation_settings:
+  excluded_tokens: ["//", "/*", "*/", "scanf"]
+  finishing_gpt_context: "You are an assistant skilled in generating C code. Only return C code with no comments."
+  finishing_gpt_prompt: "Complete and debug the following C program to make it compilable and error-free. Furthermore, in the main function, call all functions defined in the program:"
+  finishing_gpt_model: "gpt-4o-mini"
+  initial_prompt: |
+    // Write an interesting, computationally intensive function in C. Do not use the functions scanf or printf. Do not write comments if possible. Attempt to use memory-related functions such as malloc, calloc, realloc, and free. Attempt to use complex types including int, char, vector, float, double.
+    int a() {
+    <FILL_ME>
+  num_generator_choices: 10 # Number of choices the local model outputs 
+  num_lines: 10            # Number of lines in the generated programs
+  num_programs: 1000       # Number of programs to generate
+  num_tokens: 200          # Number of tokens to generate per program
+  tokens_per_generation: 1 # Number of tokens per call to generation function
+  top_k: 10                # top-k sampling
+  lower_top_p: 0.005       # Lower bound for top-p sampling
+  upper_top_p: 0.80        # If the highest probability of a token is greater than this number, that token will be automatically selected.
+  rank: 0                  # Which ranked GPU to use
+  repetition_penalty: 1.2  # Penalty for repeating 
+  seed: 0               # Seed for random number generation (null for random seed, or an integer for fixed seed)
+  use_llm_if_no_main: False # Uses the local LLM to generate 50 more tokens with a main function if True. If False, merely 
+
+device_settings: 
+  device: 0 #CUDA/GPU device to use
+  alternate_device: 'cpu'
+
+display_settings: # Display settings for debugging and understanding purposes
+  show_probabilities: False # Whether to show probabilities during generation
+  show_tokens: False       # Whether to show token ids during generation (for debugging purposes)
+  show_shape: False        # Whether to show tensor shape during generation (for debugging purposes)
+
+model_path: "" # Path to local LLM Model
+
+output:
+  use_timestamps: False     # Use timestamps for export
+  export_folder: '' # Name of folder to export generated programs (if use_timestamps is False)
+
